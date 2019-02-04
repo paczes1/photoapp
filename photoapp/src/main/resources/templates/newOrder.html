@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/headerFile"></head>
+
+<body>
+<div id="layout">
+    <div th:replace="menu/menu"></div>
+
+
+    <div class="container">
+
+        <div class="row" style="margin-top:20px">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form action="#" th:action="@{/newOrder}" th:object="${order}" enctype="multipart/form-data" method="post">
+                    <fieldset>
+                        <h1>Nowe zamówienie</h1>
+
+                        <div class="form-group">
+                            <div sec:authorize="hasRole('ROLE_EMPLOYEE')">
+                                <select title="Klient" class="form-control" th:field="*{customer}">
+                                    <option value=""> -- </option>
+                                    <option th:each="appCustomer : ${customers}"
+                                            th:value="${appCustomer.id}"
+                                            th:utext="${appCustomer.login}"/>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p>image: <input type="file" name="image" /></p>
+                            <p>image2: <input type="file" name="image2" /></p>
+                            <p>image3: <input type="file" name="image3" /></p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Zapisz"/>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+<script src="/static/css/js/ui.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div sec:authorize="hasRole('ROLE_EMPLOYEE')">
+    <div th:replace="menu/employee"></div>
+</div>
+<div sec:authorize="hasRole('ROLE_CUSTOMER')">
+    <div th:replace="menu/customer"></div>
+</div>
+</html>

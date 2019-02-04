@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <title>Photo company application</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous"></link>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/layouts/side-menu-old-ie.css"></link>
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="/css/layouts/side-menu.css" ></link>
+    <!--<![endif]-->
+</head>
+<body>
+
+
+
+
+
+
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="#">photoapp</a>
+
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item menu"><a href="/admin" class="pure-menu-link">Strona główna</a></li>
+
+
+                <li class="pure-menu-item-item-divided pure-menu-selected">
+                    <a href="admin/users" class="pure-menu-link">Użytkownicy</a>
+                </li>
+
+
+
+
+                <br></br><br></br><br></br>
+
+                &nbsp;&nbsp; <a th:href="@{/logout}">Wyloguj się</a>
+
+
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+
+        <br></br><br></br>
+        <div class="container">
+            <form th:action="@{/admin/users}" method="post">
+            <h1>Edycja użytkownika</h1>
+            <div class="row col-md-15 table-responsive">
+        <table id="userTable" class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Login</th>
+                <th>Email</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Numer telefonu</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <td><input th:name="userForm.id" th:value="${userForm.getId()}"/></td>
+            <td><input th:name="userForm.login" th:value="${userForm.getLogin()}"/></td>
+            <td><input th:name="dataForm.email" th:value="${dataForm.getEmail()}"/></td>
+            <td><input th:name="userForm.firstName" th:value="${dataForm.getFirstName()}"/></td>
+            <td><input th:name="userForm.lastName" th:value="${dataForm.getLastName()}"/></td>
+            <td><input th:name="userForm.phoneNumber" th:value="${dataForm.getPhoneNumber()}"/></td>
+
+
+
+
+
+            </tbody>
+        </table>
+
+                <td><a th:href="@{'/users/save/' + ${userForm.id} + '/' + ${dataForm.id}}" >Zapisz</a></td>
+                <td><a th:href="@{'/users/' + ${userForm.id} + '/' + ${dataForm.id}}" >Powrót</a></td>
+
+
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+
+
+
+<script src="/static/css/js/ui.js"></script>
+
+</body>
+</html>

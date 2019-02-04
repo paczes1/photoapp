@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <title>Photo company application</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-" crossorigin="anonymous"></link>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="/css/layouts/side-menu-old-ie.css"></link>
+    <![endif]-->
+    <!--[if gt IE 8]><!-->
+    <link rel="stylesheet" href="/css/layouts/side-menu.css" ></link>
+    <!--<![endif]-->
+
+</head>
+<body>
+
+<div id="layout">
+    <div th:replace="menu/menu"></div>
+    <div class="container">
+        <h1>Lista zamówień</h1>
+        <br></br>
+        <div class="row col-md-15 table-responsive">
+            <table id="ordersTable" class="table">
+                <thead>
+                <tr>
+                    <th> Id </th>
+                    <th> Data </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${orders.isEmpty()}">
+                    <td colspan="2"> No Orders Available </td>
+                </tr>
+                <tr th:each="order, itrStat : ${orders}"
+                    th:style="${itrStat.odd} ? 'color: gray' : 'color: blue;'">
+                    <td>
+                        <a th:each="image : ${order.imageUrls}" th:href="@{'/orders/' + ${order.id}}">
+                            <img th:src="@{'/uploads/' +${image}}" th:title="${order.id.substring(14)}" th:alt="${order.id.substring(14)}" width="50px" height="50px"/>
+                        </a>
+                    </td>
+                    <td><span th:text="${order.date}"> Data </span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

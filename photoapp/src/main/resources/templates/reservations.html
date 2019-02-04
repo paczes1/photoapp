@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/headerFile"></head>
+
+<body>
+<div id="layout">
+    <div th:replace="menu/menu"></div>
+
+    <div id="main">
+        <div class="header">
+            <h1>Rezerwacje</h1>
+            <h2>A subtitle for your page goes here</h2>
+        </div>
+
+        <div class="content">
+            <h2 class="content-subhead">Rezerwacje</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in </p>
+
+        </div>
+    </div>
+    <div class="container">
+        <h1>Twoje rezerwacje</h1>
+        <br />
+        <div class="row col-md-15 table-responsive">
+            <table id="reservationsTable" class="table">
+                <thead>
+                <tr>
+                    <th> Id </th>
+                    <th> Data </th>
+                    <th> Login </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${reservations.isEmpty()}">
+                    <td colspan="2">Nie ma jeszcze żadnych rezerwacji</td>
+                </tr>
+                <tr th:each="reservation, itrStat : ${reservations}"
+                    th:style="${itrStat.odd} ? 'color: gray' : 'color: blue;'">
+                    <td><span th:text="${reservation.id}"> Id </span></td>
+                    <td><span th:text="${reservation.date}"> Data </span></td>
+                    <td><span th:text="${reservation.customer.login}"> Login </span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

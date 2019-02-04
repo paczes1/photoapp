@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/headerFile"></head>
+
+<body>
+<div id="layout">
+    <div th:replace="menu/menu"></div>
+
+    <div id="main">
+        <div class="header">
+            <h1>Kalendarz</h1>
+            <h2>A subtitle for your page goes here</h2>
+        </div>
+
+        <div class="content">
+            <h2 class="content-subhead">Kalendarz</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex ea commodo consequat. Duis aute irure dolor in </p>
+
+        </div>
+    </div>
+    <div class="container">
+        <h1>Twoje rezerwacje</h1>
+        <br />
+        <div class="row col-md-15 table-responsive">
+            <table id="reservationsTable" class="table">
+                <thead>
+                <tr>
+                    <th> Id </th>
+                    <th> Data </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${reservations.isEmpty()}">
+                    <td colspan="2">Nie masz jeszcze żadnych rezerwacji</td>
+                </tr>
+                <tr th:each="reservation, itrStat : ${reservations}"
+                    th:style="${itrStat.odd} ? 'color: gray' : 'color: blue;'">
+                    <td><span th:text="${reservation.id}"> Id </span></td>
+                    <td><span th:text="${reservation.date}"> Data </span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <form th:action="@{/addReservation}" method="post" class="form-horizontal">
+            <fieldset>
+                <div class="form-group">
+                    <label for="datepicker" class="control-label">Wybierz dzień</label>
+                    <input id="datepicker" type="text" class="form-control" th:field="*{reservationDateAndTime.date}" th:required="required" />
+                </div>
+                <div class="form-group">
+                    <label for="timepicker" class="control-label">Wybierz godzinę</label>
+                    <input id="timepicker" type="text" class="form-control" th:field="*{reservationDateAndTime.time}" th:required="required" />
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Zapisz"/>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                    </div>
+                </div>
+                <script>
+                $(function() {
+                    $('#datepicker').datepicker({
+                        format: 'yyyy-mm-dd',
+                        language: 'pl',
+                        startDate: '0d'
+                    });
+                    $('#datepicker').change(function () {
+                        $('#timepicker').timepicker({ timeFormat: 'H:i',
+                         'minTime': '8:00',
+                         'maxTime': '17:00',
+                         'disableTimeRanges': [
+                            ['12:00', '13:00'],
+                            ['15:30', '16:00']
+                        ]});
+                    });
+                });
+            </script>
+            </fieldset>
+        </form>
+    </div>
+
+
+</div>
+</body>
+</html>
